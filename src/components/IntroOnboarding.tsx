@@ -171,15 +171,6 @@ export const IntroOnboarding = ({ onComplete }: IntroOnboardingProps) => {
           >
             Seu navegador não suporta vídeos.
           </video>
-          
-          <div className="text-center mt-4">
-            <Button
-              onClick={handleComplete}
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
-            >
-              Pular Vídeo
-            </Button>
-          </div>
         </div>
       </div>
     );

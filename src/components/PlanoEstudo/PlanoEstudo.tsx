@@ -68,7 +68,7 @@ export const PlanoEstudo = () => {
       
       {/* Main Content */}
       <div className="pt-14 h-full overflow-auto">
-        <div className="container mx-auto p-4 max-w-7xl">
+        <div className="container mx-auto p-2 sm:p-4 max-w-7xl">
           {error && (
             <div className="mb-6 p-4 bg-destructive/10 border border-destructive/20 rounded-lg backdrop-blur-sm">
               <p className="text-destructive text-sm">{error}</p>

@@ -73,24 +73,24 @@ export const FormularioPlano = ({ onSubmit, loading }: FormularioPlanoProps) => 
 
   return (
     <Card className="w-full max-w-2xl mx-auto bg-card/60 backdrop-blur-sm border-border/50 shadow-xl">
-      <CardHeader className="text-center">
+      <CardHeader className="text-center px-4 sm:px-6">
         <div className="flex justify-center mb-4">
-          <div className="p-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-full">
-            <GraduationCap className="h-8 w-8 text-primary" />
+          <div className="p-3 sm:p-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-full">
+            <GraduationCap className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
           </div>
         </div>
-        <CardTitle className="text-2xl bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+        <CardTitle className="text-xl sm:text-2xl bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
           Criar Plano de Estudo
         </CardTitle>
-        <CardDescription className="text-muted-foreground/80">
+        <CardDescription className="text-muted-foreground/80 text-sm sm:text-base">
           Informe os dados abaixo para gerar um plano de estudos personalizado
         </CardDescription>
       </CardHeader>
       
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
+      <CardContent className="px-4 sm:px-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="materia" className="text-sm font-medium">
+            <Label htmlFor="materia" className="text-xs sm:text-sm font-medium">
               Matéria ou Assunto
             </Label>
             <Input
@@ -98,24 +98,24 @@ export const FormularioPlano = ({ onSubmit, loading }: FormularioPlanoProps) => 
               placeholder="Ex: Direito Constitucional, Direito Civil, OAB..."
               value={materia}
               onChange={(e) => setMateria(e.target.value)}
-              className="w-full"
+              className="w-full text-sm"
               required
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div className="space-y-2">
-              <Label className="text-sm font-medium flex items-center gap-2">
-                <Calendar className="h-4 w-4" />
+              <Label className="text-xs sm:text-sm font-medium flex items-center gap-2">
+                <Calendar className="h-3 w-3 sm:h-4 sm:w-4" />
                 Dias disponíveis
               </Label>
               <Select value={dias.toString()} onValueChange={(value) => setDias(parseInt(value))}>
-                <SelectTrigger>
+                <SelectTrigger className="text-sm">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   {[3, 5, 7, 10, 14, 21, 30, 60, 90].map((d) => (
-                    <SelectItem key={d} value={d.toString()}>
+                    <SelectItem key={d} value={d.toString()} className="text-sm">
                       {d} dias
                     </SelectItem>
                   ))}
@@ -124,17 +124,17 @@ export const FormularioPlano = ({ onSubmit, loading }: FormularioPlanoProps) => 
             </div>
 
             <div className="space-y-2">
-              <Label className="text-sm font-medium flex items-center gap-2">
-                <Clock className="h-4 w-4" />
+              <Label className="text-xs sm:text-sm font-medium flex items-center gap-2">
+                <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
                 Horas por dia
               </Label>
               <Select value={horasPorDia.toString()} onValueChange={(value) => setHorasPorDia(parseInt(value))}>
-                <SelectTrigger>
+                <SelectTrigger className="text-sm">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   {[1, 2, 3, 4, 5, 6, 8].map((h) => (
-                    <SelectItem key={h} value={h.toString()}>
+                    <SelectItem key={h} value={h.toString()} className="text-sm">
                       {h} {h === 1 ? 'hora' : 'horas'}
                     </SelectItem>
                   ))}
@@ -143,8 +143,8 @@ export const FormularioPlano = ({ onSubmit, loading }: FormularioPlanoProps) => 
             </div>
           </div>
 
-          <div className="space-y-4">
-            <Label className="text-sm font-medium">
+          <div className="space-y-3 sm:space-y-4">
+            <Label className="text-xs sm:text-sm font-medium">
               Material de Estudo (Opcional)
             </Label>
             <p className="text-xs text-muted-foreground">
@@ -152,14 +152,14 @@ export const FormularioPlano = ({ onSubmit, loading }: FormularioPlanoProps) => 
             </p>
             
             {arquivo ? (
-              <div className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg border border-border/50">
-                <div className="flex items-center gap-2">
+              <div className="flex items-center justify-between p-2 sm:p-3 bg-secondary/50 rounded-lg border border-border/50">
+                <div className="flex items-center gap-2 min-w-0 flex-1">
                   {arquivo.type === 'application/pdf' ? (
-                    <FileText className="h-4 w-4 text-primary" />
+                    <FileText className="h-3 w-3 sm:h-4 sm:w-4 text-primary flex-shrink-0" />
                   ) : (
-                    <Image className="h-4 w-4 text-primary" />
+                    <Image className="h-3 w-3 sm:h-4 sm:w-4 text-primary flex-shrink-0" />
                   )}
-                  <span className="text-sm text-foreground truncate max-w-[200px]">
+                  <span className="text-xs sm:text-sm text-foreground truncate max-w-[120px] sm:max-w-[200px]">
                     {arquivo.name}
                   </span>
                 </div>
@@ -168,30 +168,30 @@ export const FormularioPlano = ({ onSubmit, loading }: FormularioPlanoProps) => 
                   variant="ghost"
                   size="sm"
                   onClick={handleRemoveFile}
-                  className="text-muted-foreground hover:text-destructive"
+                  className="text-muted-foreground hover:text-destructive p-1 h-auto flex-shrink-0"
                 >
                   ×
                 </Button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <Button
                   type="button"
                   variant="outline"
-                  className="w-full"
+                  className="w-full h-9 sm:h-10 text-xs sm:text-sm"
                   onClick={() => fileInputRef.current?.click()}
                 >
-                  <Upload className="h-4 w-4 mr-2" />
+                  <Upload className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                   Upload PDF
                 </Button>
                 
                 <Button
                   type="button"
                   variant="outline"
-                  className="w-full"
+                  className="w-full h-9 sm:h-10 text-xs sm:text-sm"
                   onClick={() => fileInputRef.current?.click()}
                 >
-                  <Image className="h-4 w-4 mr-2" />
+                  <Image className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                   Galeria
                 </Button>
               </div>
@@ -208,16 +208,20 @@ export const FormularioPlano = ({ onSubmit, loading }: FormularioPlanoProps) => 
 
           <Button 
             type="submit" 
-            className="w-full"
+            className="w-full h-10 sm:h-11 text-sm sm:text-base font-medium"
             disabled={loading || !materia.trim()}
           >
             {loading ? (
               <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                Gerando plano...
+                <Loader2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 animate-spin" />
+                <span className="hidden sm:inline">Gerando plano...</span>
+                <span className="sm:hidden">Gerando...</span>
               </>
             ) : (
-              'Gerar Plano de Estudo'
+              <>
+                <span className="hidden sm:inline">Gerar Plano de Estudo</span>
+                <span className="sm:hidden">Gerar Plano</span>
+              </>
             )}
           </Button>
         </form>
