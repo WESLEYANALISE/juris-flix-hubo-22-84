@@ -136,7 +136,7 @@ const ProductCarousel = memo(() => {
       </div>;
   }
   return <div className="w-full overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-r from-store-primary/5 to-premium-primary/5 
-                    shadow-lg sm:shadow-2xl border animate-scale-in -mx-4">
+                    shadow-lg sm:shadow-2xl border animate-scale-in">
       {/* Título do Carrossel com animação melhorada */}
       <div className="text-center py-3 sm:py-4 md:py-6 bg-gradient-to-r from-store-primary/10 to-premium-primary/10 
                       relative overflow-hidden animate-fade-in-up">
