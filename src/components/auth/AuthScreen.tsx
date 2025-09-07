@@ -11,7 +11,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/context/AuthContext';
 import { Loader2, Eye, EyeOff, Mail, Lock, User, GraduationCap } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
 
 const signUpSchema = z.object({
   email: z.string().email('Email inválido'),
@@ -34,8 +33,6 @@ export const AuthScreen = () => {
   const [activeTab, setActiveTab] = useState('signin');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [showForgotPassword, setShowForgotPassword] = useState(false);
-  const [resetEmail, setResetEmail] = useState('');
   const { signUp, signIn } = useAuth();
   const { toast } = useToast();
 
@@ -123,47 +120,6 @@ export const AuthScreen = () => {
             variant: "destructive"
           });
         }
-      }
-    } catch (error) {
-      toast({
-        title: "Erro inesperado",
-        description: "Tente novamente em alguns instantes.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleForgotPassword = async () => {
-    if (!resetEmail) {
-      toast({
-        title: "Email obrigatório",
-        description: "Digite seu email para recuperar a senha.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
-        redirectTo: `${window.location.origin}/reset-password`,
-      });
-
-      if (error) {
-        toast({
-          title: "Erro ao enviar email",
-          description: error.message,
-          variant: "destructive"
-        });
-      } else {
-        toast({
-          title: "Email enviado!",
-          description: "Verifique sua caixa de entrada para redefinir sua senha.",
-        });
-        setShowForgotPassword(false);
-        setResetEmail('');
       }
     } catch (error) {
       toast({
@@ -283,15 +239,6 @@ export const AuthScreen = () => {
                     ) : (
                       'Entrar'
                     )}
-                  </Button>
-
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    className="w-full text-sm"
-                    onClick={() => setShowForgotPassword(true)}
-                  >
-                    Esqueceu sua senha?
                   </Button>
                 </form>
               </TabsContent>
@@ -416,55 +363,6 @@ export const AuthScreen = () => {
           Ao continuar, você concorda com nossos termos de uso
         </p>
       </div>
-
-      {/* Modal de Recuperação de Senha */}
-      {showForgotPassword && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <Card className="w-full max-w-md">
-            <CardHeader>
-              <CardTitle>Recuperar Senha</CardTitle>
-              <CardDescription>
-                Digite seu email para receber o link de recuperação
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Label htmlFor="reset-email">Email</Label>
-                <Input
-                  id="reset-email"
-                  type="email"
-                  value={resetEmail}
-                  onChange={(e) => setResetEmail(e.target.value)}
-                  placeholder="seu@email.com"
-                />
-              </div>
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  className="flex-1"
-                  onClick={() => {
-                    setShowForgotPassword(false);
-                    setResetEmail('');
-                  }}
-                >
-                  Cancelar
-                </Button>
-                <Button
-                  className="flex-1"
-                  onClick={handleForgotPassword}
-                  disabled={isLoading || !resetEmail}
-                >
-                  {isLoading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
-                    'Enviar'
-                  )}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
     </div>
   );
 };

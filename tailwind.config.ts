@@ -224,20 +224,6 @@ export default {
 						transform: 'scale(1.05)',
 						boxShadow: '0 0 0 10px rgba(239, 68, 68, 0)'
 					}
-				},
-				'chat-slide-up': {
-					'0%': { 
-						transform: 'translateY(100%) scale(0.95)',
-						opacity: '0'
-					},
-					'50%': {
-						transform: 'translateY(50%) scale(0.98)',
-						opacity: '0.7'
-					},
-					'100%': { 
-						transform: 'translateY(0) scale(1)',
-						opacity: '1'
-					}
 				}
 			},
 			animation: {
@@ -262,8 +248,7 @@ export default {
 				'shimmer': 'shimmer 2s ease-in-out infinite',
 				'float-enhanced': 'float-enhanced 6s ease-in-out infinite',
 				'notification-glow': 'notification-glow 2s ease-in-out infinite',
-				'morphing-bg': 'morphing-bg 8s ease-in-out infinite',
-				'chat-slide-up': 'chat-slide-up 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+				'morphing-bg': 'morphing-bg 8s ease-in-out infinite'
 			}
 		}
 	},
