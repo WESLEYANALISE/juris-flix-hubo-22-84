@@ -1,9 +1,10 @@
-import { Scale, Bot, Film, GraduationCap, BookOpen } from 'lucide-react';
+import { Scale, Bot, Film, GraduationCap, BookOpen, Settings } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigation } from '@/context/NavigationContext';
 import { useAppFunctions } from '@/hooks/useAppFunctions';
 import { useDeviceDetection } from '@/hooks/useDeviceDetection';
 import { AIDocumentAnalyzer } from './AIDocumentAnalyzer';
+import { UserSettings } from './UserSettings';
 
 interface FooterMenuProps {
   isVisible?: boolean;
@@ -12,6 +13,7 @@ interface FooterMenuProps {
 export const FooterMenu = ({ isVisible = true }: FooterMenuProps) => {
   const [activeItem, setActiveItem] = useState('home');
   const [aiDocumentOpen, setAiDocumentOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const { setCurrentFunction } = useNavigation();
   const { functions } = useAppFunctions();
   const { isDesktop } = useDeviceDetection();
@@ -58,6 +60,13 @@ export const FooterMenu = ({ isVisible = true }: FooterMenuProps) => {
       icon: Film,
       function: findFunction('juriflix')?.funcao || 'Juriflix',
       color: 'community'
+    },
+    {
+      id: 'settings',
+      title: 'Config',
+      icon: Settings,
+      function: 'Configurações',
+      color: 'muted'
     }
   ];
 
@@ -103,6 +112,8 @@ export const FooterMenu = ({ isVisible = true }: FooterMenuProps) => {
     
     if (item.id === 'assistenteia') {
       setAiDocumentOpen(true);
+    } else if (item.id === 'settings') {
+      setSettingsOpen(true);
     } else {
       setCurrentFunction(item.function);
     }
@@ -161,6 +172,10 @@ export const FooterMenu = ({ isVisible = true }: FooterMenuProps) => {
         
         {aiDocumentOpen && (
           <AIDocumentAnalyzer onBack={() => setAiDocumentOpen(false)} />
+        )}
+        
+        {settingsOpen && (
+          <UserSettings onBack={() => setSettingsOpen(false)} />
         )}
       </div>
     );
@@ -266,6 +281,10 @@ export const FooterMenu = ({ isVisible = true }: FooterMenuProps) => {
       
       {aiDocumentOpen && (
         <AIDocumentAnalyzer onBack={() => setAiDocumentOpen(false)} />
+      )}
+      
+      {settingsOpen && (
+        <UserSettings onBack={() => setSettingsOpen(false)} />
       )}
     </div>
   );
