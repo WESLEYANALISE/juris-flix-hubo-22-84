@@ -74,6 +74,10 @@ export const LazyPlanoEstudo = lazy(() =>
   import('@/components/PlanoEstudo/PlanoEstudo').then(module => ({ default: module.PlanoEstudo }))
 );
 
+export const LazyRedacao = lazy(() => 
+  import('@/components/Redacao').then(module => ({ default: module.Redacao }))
+);
+
 // Preload functions para componentes críticos
 export const preloadCriticalComponents = () => {
   // Preload componentes que serão usados com frequência

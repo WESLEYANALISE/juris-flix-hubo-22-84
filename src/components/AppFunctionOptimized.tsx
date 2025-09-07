@@ -14,7 +14,8 @@ import {
   LazyBibliotecaClassicos,
   LazyLoja,
   LazyAssistenteIA,
-  LazyPlanoEstudo
+  LazyPlanoEstudo,
+  LazyRedacao
 } from '@/components/lazy/LazyComponents';
 
 // Imports diretos para componentes que sempre devem ser internos
@@ -144,6 +145,11 @@ export const AppFunction = memo(() => {
   // Plano de Estudo
   if (lowerCaseFunction.includes('plano') || currentFunction === 'Plano de Estudo') {
     return <Suspense fallback={<LoadingComponent />}><LazyPlanoEstudo /></Suspense>;
+  }
+
+  // Redação
+  if (lowerCaseFunction.includes('redação') || lowerCaseFunction.includes('redacao') || currentFunction === 'Redação') {
+    return <Suspense fallback={<LoadingComponent />}><LazyRedacao /></Suspense>;
   }
 
   // Fallback padrão - layout não fullscreen para funcionalidades em desenvolvimento
